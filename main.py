@@ -1,4 +1,3 @@
-from bs4 import BeautifulSoup as bs
 import requests
 import json
 import argparse
@@ -17,7 +16,6 @@ def job() -> bool:
 
     CURRENT_POLL = json.loads(s.get(GET_CURRENT_POLL).text)['currentPollUrl'].split('/')[-1]
 
-    URL = f"/apps/polls/s/{CURRENT_POLL}"
     REGISTER = f"/apps/polls/s/{CURRENT_POLL}/register"
 
     csrf_token = s.get(BASE + TOKEN)
@@ -85,6 +83,7 @@ def job() -> bool:
         print("Failed register", vote_req)
         return False
 
+    print("Succesfully signed up")
     return True
 
 def sleepUntillWednesday() -> datetime:
@@ -116,13 +115,12 @@ def getDays(day) -> int:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-n", "--name", help="username", required=True)
-    parser.add_argument("-g", "--games", help="games to signup, represented as three numbers, 111, 110 etc", required=True)
     args = parser.parse_args()
 
     USERNAME = args.name
     GAMES = args.games
 
-    # nextWed = sleepUntillWednesday()
+    nextWed = sleepUntillWednesday()
     while(True):
         if not job():
             quit()
