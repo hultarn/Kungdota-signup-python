@@ -1,0 +1,7 @@
+/.dockerignore
+/.vscode
+/docker-compose.debug.yml
+/docker-compose.yml
+/Dockerfile
+/requirements.txt
+/test.py
